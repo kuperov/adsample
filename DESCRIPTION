@@ -1,0 +1,18 @@
+Package: adsample
+Type: Package
+Title: Fast Adaptive Rejection Sampling for Log Concave Densities
+Version: 0.1.0.9000
+Author: Alex Cooper
+Maintainer: Alex Cooper <alexander.cooper@monash.edu>
+Description: Implements the adaptive sampling scheme described
+    by Gilks & Wild (1992) for sampling from a log-concave density.
+License: GPL-3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 0.12.12)
+LinkingTo: Rcpp
+RoxygenNote: 6.0.1
+RcppModules: adsample
+NeedsCompilation: yes
+Suggests: testthat,
+  covr
