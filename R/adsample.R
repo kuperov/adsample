@@ -17,6 +17,16 @@
 #' @references Gilks, W. R., & Wild, P. (1992). Adaptive rejection sampling
 #'             for Gibbs sampling. Applied Statistics, 337–348.
 #' @seealso mklogdensf
+#' @examples
+#' \dontrun{
+#'  h <- function(tau) {
+#'     y <- log(4*sqrt(2)*sqrt(tau)*exp(-1/2*tau*(3 - 1)^2)/sqrt(pi))
+#'     yprime <- 1/2*(-tau*(3 - 1)^2 + 1)/tau
+#'     c(y, yprime)
+#'   }
+#'  xs <- adsample(n = 10, log_dens = h, initialPoints = c(0.5, 1),
+#'                 minRange = 0, maxRange = Inf)
+#' }
 #' @export
 adsample <- function(n, log_dens, initialPoints, minRange, maxRange,
                      debug=FALSE, ...) {
@@ -50,13 +60,13 @@ adsample <- function(n, log_dens, initialPoints, minRange, maxRange,
 #' @examples
 #'
 #' # generated function takes any additional parameters
-#' f <- mklogdensf(a + b^2, b)
-#' f(3, a = 2)
+#' g <- mklogdensf(a + b^2, b)
+#' g(3, a = 2)
 #'
 #' # you can also fix additional parameters when you call mklogdensf
-#' f <- mklogdensf(a + b^2, b, a = 2)
-#' f(3)
-#' f(4)
+#' g <- mklogdensf(a + b^2, b, a = 2)
+#' g(3)
+#' g(4)
 #'
 #' @export
 mklogdensf <- function(expr, wrt, ...) {
@@ -100,13 +110,12 @@ plot.adsample <- function(x, ...) {
 
   # LHS plot: density
   xrange <- range(x$samples)
-  ker.dens <- density(x$samples)
-  plot(ker.dens, col='red',
-       main = paste0('Sample density (n=',x$n,')'))
+  hist(x$samples, freq=FALSE, xlab = 'x',
+       main = paste0('Samples drawn (n=',x$n,')'))
   dens <- Vectorize(function(y) exp(x$f(y)[1]))
   curve(dens, from=xrange[1], to=xrange[2], add=TRUE, col='blue')
-  legend('topright', c('Kernel estimate', 'Actual density'),
-         lty=1, col=c('red','blue'))
+  legend('topright', c('Density function'),
+         lty=1, col=c('blue'))
 
   # RHS plot: log density
   log.dens <- Vectorize(function(y) x$f(y)[1])
