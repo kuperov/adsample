@@ -87,3 +87,20 @@ test_that("diagnostic plots for adsample objects work without error", {
   dev.off()
   unlink(tf)
 })
+
+test_that("symbolic differentiation works", {
+  # automatic
+  auto <- mklogdensf(exp(-1/18*(x-2)^2), x)
+  # manual
+  man <- function(x) {
+    y <- - 1/18*(x-2)^2
+    yprime <- -(x - 2)/9
+    c(y, yprime)
+  }
+  xs <- c(-100, -0.1, 0, 2, 8)
+  for (x in xs) {
+    y.auto <- auto(x)
+    y.man  <- man(x)
+    expect_equal(y.auto, y.man)
+  }
+})

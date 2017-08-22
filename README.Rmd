@@ -71,10 +71,3 @@ plot(dbg)
 This plot nicely shows the upper and lower hulls (green and gray, respectively)
 for the log density the algorithm computes. Notice that, even though we drew 100
 variates, there were far fewer evaluations of $h(x)$ (denoted by circles).
-
-To make it easier to construct the log density function, there is a convenience
-function that automatically differentiates the density symbolically:
-```{r autodef}
-g <- mklogdensf(exp(-1/18*(x-2)^2), x)
-g(2)  # mode is at x=2, so second derivative is zero
-```
