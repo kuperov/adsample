@@ -6,7 +6,7 @@
 \alias{adsample-package}
 \alias{adsample}
 \alias{plot.adsample}
-\title{adsample: Adaptive sampling routine for log concave densities}
+\title{adsample: Adaptive rejection sampling for log concave densities}
 \usage{
 adsample(n, log_dens, initialPoints, minRange, maxRange, debug = FALSE, ...)
 
@@ -35,12 +35,23 @@ a vector of samples, or if debug is TRUE, a list of samples and
         state variables
 }
 \description{
-adsample: Adaptive sampling routine for log concave densities
+adsample: Adaptive rejection sampling for log concave densities
 
 If debug is TRUE, returns a list rather than a vector of samples
 
 Create an adsample object by calling adsample with debug=TRUE.
 This function plots empirical and actual density side by side.
+}
+\examples{
+\dontrun{
+ h <- function(tau) {
+    y <- log(4*sqrt(2)*sqrt(tau)*exp(-1/2*tau*(3 - 1)^2)/sqrt(pi))
+    yprime <- 1/2*(-tau*(3 - 1)^2 + 1)/tau
+    c(y, yprime)
+  }
+ xs <- adsample(n = 10, log_dens = h, initialPoints = c(0.5, 1),
+                minRange = 0, maxRange = Inf)
+}
 }
 \references{
 Gilks, W. R., & Wild, P. (1992). Adaptive rejection sampling

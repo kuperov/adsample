@@ -24,12 +24,12 @@ of the form \code{( log(density(x)), dlog(density(x))/dx )}.
 \examples{
 
 # generated function takes any additional parameters
-f <- mklogdensf(a + b^2, b)
-f(3, a = 2)
+g <- mklogdensf(a + b^2, b)
+g(3, a = 2)
 
 # you can also fix additional parameters when you call mklogdensf
-f <- mklogdensf(a + b^2, b, a = 2)
-f(3)
-f(4)
+g <- mklogdensf(a + b^2, b, a = 2)
+g(3)
+g(4)
 
 }

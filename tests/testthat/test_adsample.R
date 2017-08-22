@@ -22,6 +22,8 @@ test_that("raw ad_sample can generate variates", {
 })
 
 test_that("raw_ad_sample_debug can generate variates and sensible state variables", {
+  set.seed(123)
+
   # use example of the Gamma(3/2, 2) density
   h.gam <- function(tau) {
     y <- log(4*sqrt(2)*sqrt(tau)*exp(-1/2*tau*(3 - 1)^2)/sqrt(pi))
@@ -45,6 +47,27 @@ test_that("raw_ad_sample_debug can generate variates and sensible state variable
   f <- function(tau) pgamma(tau, shape = 3/2, rate = 2)
   kt <- ks.test(samp$samples, 'f')
   expect_gt(kt$p.value, 0.01)
+})
+
+test_that("adsample interface draws samples", {
+  set.seed(123)
+
+  h <- function(tau) {
+    y <- log(4*sqrt(2)*sqrt(tau)*exp(-1/2*tau*(3 - 1)^2)/sqrt(pi))
+    yprime <- 1/2*(-tau*(3 - 1)^2 + 1)/tau
+    c(y, yprime)
+  }
+
+  xs <- adsample(n = 10, log_dens = h, initialPoints = c(0.5, 1),
+                minRange = 0, maxRange = Inf)
+  expect_equal(length(xs), 10)
+  expect_equal('numeric', class(xs))
+
+  x.debug <- adsample(n = 10, log_dens = h, initialPoints = c(0.5, 1),
+                        minRange = 0, maxRange = Inf, debug = TRUE)
+
+  expect_equal('adsample', class(x.debug))
+  expect_equal(length(x.debug$samples), 10)
 })
 
 test_that("diagnostic plots for adsample objects work without error", {

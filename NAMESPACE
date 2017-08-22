@@ -3,4 +3,5 @@
 S3method(plot,adsample)
 export(adsample)
 export(mklogdensf)
+importFrom(Rcpp,evalCpp)
 useDynLib(adsample)

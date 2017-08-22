@@ -1,6 +1,7 @@
-#' adsample: Adaptive sampling routine for log concave densities
+#' adsample: Adaptive rejection sampling for log concave densities
 #'
 #' @name adsample
 #' @docType package
+#' @importFrom Rcpp evalCpp
 #' @useDynLib adsample
 NULL
