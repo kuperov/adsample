@@ -13,7 +13,7 @@ The algorithm can sample from any univariate log concave densities. This is a la
 Example
 =======
 
-In this contrived example, we draw 1,000 variates from the truncated normal distribution Normal(2, 3^2; -10, 10). We first specify an R function that computes the log density and its derivative:
+In this contrived example, we draw 100 variates from the truncated normal distribution Normal(2, 3^2; -10, 10). We first specify an R function that computes the log density and its derivative:
 
 ``` r
 # log density and derivative function

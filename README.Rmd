@@ -33,7 +33,7 @@ but is not all of them. See the paper!
 
 # Example
 
-In this contrived example, we draw 1,000 variates from the truncated normal
+In this contrived example, we draw 100 variates from the truncated normal
 distribution Normal(2, 3^2; -10, 10). We first specify an R function that 
 computes the log density and its derivative:
 ```{r defh}
@@ -68,6 +68,10 @@ dbg <- adsample(n = 100, log_dens = h, initialPoints = c(-1, 1), minRange = -10,
 plot(dbg)
 ```
 
-This plot nicely shows the upper and lower hulls (green and gray, respectively)
-for the log density the algorithm computes. Notice that, even though we drew 100
-variates, there were far fewer evaluations of $h(x)$ (denoted by circles).
+The left-hand plot shows the histogram of drawn values, which lines up nicely 
+against the pdf (blue). The right-hand plot shows the log density and its
+piecewise linear approximation. It shows the upper and lower hulls (green and 
+gray, respectively) which the algorithm uses to bound the log density function.
+The hulls are piecewise linear and hence very cheap to calculate; this is what
+gives the algorithm its speed. Notice that, even though we drew 100 variates, 
+there were far fewer evaluations of $h(x)$ (denoted by circles).
