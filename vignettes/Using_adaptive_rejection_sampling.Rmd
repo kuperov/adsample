@@ -73,3 +73,10 @@ plot(dbg)
 This plot nicely shows the upper and lower hulls (green and gray, respectively)
 for the log density the algorithm computes. Notice that, even though we drew 100
 variates, there were far fewer evaluations of $h(x)$ (denoted by circles).
+
+References
+----------
+
+Gilks, W., & Wild, P. (1992). Adaptive Rejection Sampling for Gibbs Sampling. 
+Journal of the Royal Statistical Society. Series C (Applied Statistics), 41(2), 
+337-348. doi:10.2307/2347565

@@ -19,9 +19,9 @@ knitr::opts_chunk$set(
 [![Travis-CI Build Status](https://travis-ci.org/kuperov/adsample.svg?branch=master)](https://travis-ci.org/kuperov/adsample)
 [![Coverage Status](https://img.shields.io/codecov/c/github/kuperov/adsample/master.svg)](https://codecov.io/github/kuperov/adsample?branch=master)
 
-This package implements the adaptive rejection sampling described by Gilks 
-& Wild (1992). It is implemented in C++ and provides a convenient symbolic
-differentiation tool and diagnostic graphs.
+This package implements the adaptive rejection sampling described by 
+[Gilks & Wild (1992)](http://www.jstor.org/stable/2347565). It is implemented 
+in C++.
 
 The algorithm works well for densities that are expensive to compute, where
 sampling from an empirical distribution function (as in griddy Gibbs) would be
