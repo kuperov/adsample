@@ -13,13 +13,7 @@ The algorithm can sample from any univariate log concave densities. This is a la
 Example
 =======
 
-In this contrived example, we draw 1,000 variates from the truncated normal distribution Normal(2, 3^2; -10, 10), which has density function
-$$ f(x) \\propto I\_{|x| \\leq 10}(x)\\exp\\left\\{ -\\frac{1}{18}\\left(x - 2\\right)^2\\right\\}.$$
- The algorithm requires log density function. Assuming |*x*|≤10, we have
-$$ h(x) = \\log f(x) = -\\frac{1}{18}\\left(x - 2\\right)^2$$
- and its derivative
-$$ h'(x) = \\frac{d\\log f(x)}{dx} = -\\frac{x - 2}{9}.$$
- We first specify an R function that computes these values:
+In this contrived example, we draw 1,000 variates from the truncated normal distribution Normal(2, 3^2; -10, 10). We first specify an R function that computes the log density and its derivative:
 
 ``` r
 # log density and derivative function
@@ -30,14 +24,6 @@ h <- function(x) {
 }
 ```
 
-We can verify that *h*(*x*) is log concave by noticing that its second derivative *h*″(*x*)= − 1 is negative, a fact we can also check visually:
-
-``` r
-plot(Vectorize(function(x) h(x)[1]), -10, 14, ylab='log density', main='h(x)')
-```
-
-![](README-ploth-1.png)
-
 And now we call `adsample` to sample 1,000 variates. We need to provide two initial points within the support of *f* to seed the algorithm, and the bounds of its support.
 
 ``` r
@@ -45,7 +31,10 @@ library(adsample)
 set.seed(123)
 xs <- adsample(n = 100, log_dens = h, initialPoints = c(-1, 1), minRange = -10,
                maxRange = 10)
-plot(density(xs), 'X ~ Normal(2, 3^2; -10, 10)')
+plot(density(xs), 'X ~ Normal(2, 3^2; -10, 10)', col='red')
+true.dens <- function(x) dnorm(x, 2, 3)/(1-2*pnorm(-10, 2, 3))
+curve(true.dens, -10, 10, add=TRUE, col='blue')
+legend('topleft', c('Kernel density', 'True density'), col=c('red','blue'), lty=1)
 ```
 
 ![](README-sample1-1.png)

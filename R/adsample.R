@@ -121,7 +121,7 @@ plot.adsample <- function(x, ...) {
   hist(x$samples, freq=FALSE, xlab = 'x', ylim = plot.limits,
        main = paste0('Samples drawn (n=',x$n,')'))
   lines(xs, dens.y, col='blue')
-  legend('bottomright', c('Density function'), lty=1, col=c('blue'))
+  #legend('bottomright', c('Density function'), lty=1, col=c('blue'))
 
   # RHS plot: log density
   log.dens <- Vectorize(function(y) x$f(y)[1])
@@ -137,6 +137,6 @@ plot.adsample <- function(x, ...) {
   lines(z, y, col='darkgreen')
   # lower hull connects (T, H)
   with(x, lines(T, H, col='gray'))
-  legend('bottomright', c('Actual density', 'Upper hull', 'Lower hull'),
-         lty=1, col=c('blue', 'darkgreen', 'gray'))
+  #legend('bottomright', c('Actual density', 'Upper hull', 'Lower hull'),
+  #       lty=1, col=c('blue', 'darkgreen', 'gray'))
 }

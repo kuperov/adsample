@@ -15,4 +15,7 @@ RoxygenNote: 6.0.1
 RcppModules: adsample
 NeedsCompilation: yes
 Suggests: testthat,
-  covr
+  covr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
