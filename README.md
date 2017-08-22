@@ -4,7 +4,7 @@ adsample: Fast Adaptive Rejection Sampling
 
 [![Travis-CI Build Status](https://travis-ci.org/kuperov/adsample.svg?branch=master)](https://travis-ci.org/kuperov/adsample) [![Coverage Status](https://img.shields.io/codecov/c/github/kuperov/adsample/master.svg)](https://codecov.io/github/kuperov/adsample?branch=master)
 
-This package implements the adaptive rejection sampling described by Gilks & Wild (1992). It is implemented in C++ and provides a convenient symbolic differentiation tool and diagnostic graphs.
+This package implements the adaptive rejection sampling described by [Gilks & Wild (1992)](http://www.jstor.org/stable/2347565). It is implemented in C++. *It is still under development, and not ready for general use.*
 
 The algorithm works well for densities that are expensive to compute, where sampling from an empirical distribution function (as in griddy Gibbs) would be computationally expensive.
 
@@ -24,7 +24,7 @@ h <- function(x) {
 }
 ```
 
-And now we call `adsample` to sample 1,000 variates. We need to provide two initial points within the support of *f* to seed the algorithm, and the bounds of its support.
+And now we call `adsample` to sample 100 variates. We need to provide two initial points within the support of *f* to seed the algorithm, and the bounds of its support.
 
 ``` r
 library(adsample)
@@ -51,11 +51,3 @@ plot(dbg)
 ![](README-sampledebug-1.png)
 
 This plot nicely shows the upper and lower hulls (green and gray, respectively) for the log density the algorithm computes. Notice that, even though we drew 100 variates, there were far fewer evaluations of *h*(*x*) (denoted by circles).
-
-To make it easier to construct the log density function, there is a convenience function that automatically differentiates the density symbolically:
-
-``` r
-g <- mklogdensf(exp(-1/18*(x-2)^2), x)
-g(2)  # mode is at x=2, so second derivative is zero
-#> [1] 0 0
-```
