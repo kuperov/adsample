@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 This package implements the adaptive rejection sampling described by 
 [Gilks & Wild (1992)](http://www.jstor.org/stable/2347565). It is implemented 
-in C++.
+in C++. *It is still under development, and not ready for general use.*
 
 The algorithm works well for densities that are expensive to compute, where
 sampling from an empirical distribution function (as in griddy Gibbs) would be
@@ -45,7 +45,7 @@ h <- function(x) {
 }
 ```
 
-And now we call `adsample` to sample 1,000 variates. We need to provide two 
+And now we call `adsample` to sample 100 variates. We need to provide two 
 initial points within the support of $f$ to seed the algorithm, and the bounds
 of its support.
 ```{r sample1}

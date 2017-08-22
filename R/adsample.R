@@ -85,7 +85,7 @@ mklogdensf <- function(expr, wrt, ...) {
   ldderiv <- deriv(ldens, wrts)
 
   # now manipulate log density & deriv into a function
-  # from the abscissa into a bivariate vector of
+  # from the abscissa to a bivariate vector of the form
   # c( log(density(x)), dlog(density(x))/dx )
   function(x, ...) {
     l <- list(...)
