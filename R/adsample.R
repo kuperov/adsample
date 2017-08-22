@@ -109,13 +109,19 @@ plot.adsample <- function(x, ...) {
   par(mfrow=c(1,2))
 
   # LHS plot: density
-  xrange <- range(x$samples)
-  hist(x$samples, freq=FALSE, xlab = 'x',
-       main = paste0('Samples drawn (n=',x$n,')'))
+  h <- hist(x$samples, plot = F)
+  xrange <- range(h$breaks)
   dens <- Vectorize(function(y) exp(x$f(y)[1]))
-  curve(dens, from=xrange[1], to=xrange[2], add=TRUE, col='blue')
-  legend('topright', c('Density function'),
-         lty=1, col=c('blue'))
+  xs <- seq(xrange[1], xrange[2], length.out = 100)
+  dens.y <- dens(xs)
+  # normalize density; xrange should cover most of its support
+  area.dens <- integrate(dens, xrange[1], xrange[2])$value
+  dens.y <- dens.y/area.dens
+  plot.limits <- c(0, max(dens.y, h$density))
+  hist(x$samples, freq=FALSE, xlab = 'x', ylim = plot.limits,
+       main = paste0('Samples drawn (n=',x$n,')'))
+  lines(xs, dens.y, col='blue')
+  legend('topright', c('Density function'), lty=1, col=c('blue'))
 
   # RHS plot: log density
   log.dens <- Vectorize(function(y) x$f(y)[1])
