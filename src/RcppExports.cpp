@@ -21,8 +21,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // raw_ad_sample_debug
-List raw_ad_sample_debug(int n, Rcpp::Function log_dens, NumericVector initialPoints, Rcpp::NumericVector minRange, Rcpp::NumericVector maxRange);
-RcppExport SEXP _adsample_raw_ad_sample_debug(SEXP nSEXP, SEXP log_densSEXP, SEXP initialPointsSEXP, SEXP minRangeSEXP, SEXP maxRangeSEXP) {
+List raw_ad_sample_debug(int n, Rcpp::Function log_dens, NumericVector initialPoints, Rcpp::NumericVector minRange, Rcpp::NumericVector maxRange, long maxiter);
+RcppExport SEXP _adsample_raw_ad_sample_debug(SEXP nSEXP, SEXP log_densSEXP, SEXP initialPointsSEXP, SEXP minRangeSEXP, SEXP maxRangeSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,14 +31,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type initialPoints(initialPointsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type minRange(minRangeSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type maxRange(maxRangeSEXP);
-    rcpp_result_gen = Rcpp::wrap(raw_ad_sample_debug(n, log_dens, initialPoints, minRange, maxRange));
+    Rcpp::traits::input_parameter< long >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(raw_ad_sample_debug(n, log_dens, initialPoints, minRange, maxRange, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_adsample_raw_ad_sample", (DL_FUNC) &_adsample_raw_ad_sample, 5},
-    {"_adsample_raw_ad_sample_debug", (DL_FUNC) &_adsample_raw_ad_sample_debug, 5},
+    {"_adsample_raw_ad_sample_debug", (DL_FUNC) &_adsample_raw_ad_sample_debug, 6},
     {NULL, NULL, 0}
 };
 

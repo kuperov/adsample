@@ -11,6 +11,7 @@
 #' @param minRange lower boundary of support of log_dens
 #' @param maxRange upper boundary of support of log_dens
 #' @param debug if true, return a list of the algorithm's internal state
+#' @param maxiter maximum number of iterations, or zero for no limit
 #' @param ... additional parameters to pass to the log density function
 #' @return a vector of samples, or if debug is TRUE, a list of samples and
 #'         state variables
@@ -29,13 +30,13 @@
 #' }
 #' @export
 adsample <- function(n, log_dens, initialPoints, minRange, maxRange,
-                     debug=FALSE, ...) {
+                     debug=FALSE, maxiter=0, ...) {
   stopifnot(length(initialPoints) >= 2, all(is.numeric(initialPoints)))
   stopifnot(n > 0, class(log_dens) == 'function', minRange < maxRange)
   stopifnot(all(initialPoints > minRange), all(initialPoints < maxRange))
   f <- function(x) log_dens(x, ...)
   if (debug) {
-    res <- raw_ad_sample_debug(n, f, initialPoints, minRange, maxRange)
+    res <- raw_ad_sample_debug(n, f, initialPoints, minRange, maxRange, maxiter)
     res$f <- f
     res$n <- n
     res$minRange <- minRange

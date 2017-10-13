@@ -21,8 +21,9 @@ raw_ad_sample <- function(n, log_dens, initialPoints, minRange, maxRange) {
 #' @param initialPoints at least 2 points in support to seed algorithm
 #' @param minRange lower bound of support
 #' @param maxRange upper bound of support
+#' @param maxiter maximum number of iterations; zero if no limit
 #'
-raw_ad_sample_debug <- function(n, log_dens, initialPoints, minRange, maxRange) {
-    .Call('_adsample_raw_ad_sample_debug', PACKAGE = 'adsample', n, log_dens, initialPoints, minRange, maxRange)
+raw_ad_sample_debug <- function(n, log_dens, initialPoints, minRange, maxRange, maxiter) {
+    .Call('_adsample_raw_ad_sample_debug', PACKAGE = 'adsample', n, log_dens, initialPoints, minRange, maxRange, maxiter)
 }
 

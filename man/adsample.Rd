@@ -8,7 +8,8 @@
 \alias{plot.adsample}
 \title{adsample: Adaptive rejection sampling for log concave densities}
 \usage{
-adsample(n, log_dens, initialPoints, minRange, maxRange, debug = FALSE, ...)
+adsample(n, log_dens, initialPoints, minRange, maxRange, debug = FALSE,
+  maxiter = 0, ...)
 
 \method{plot}{adsample}(x, ...)
 }
@@ -25,6 +26,8 @@ parameter}
 \item{maxRange}{upper boundary of support of log_dens}
 
 \item{debug}{if true, return a list of the algorithm's internal state}
+
+\item{maxiter}{maximum number of iterations, or zero for no limit}
 
 \item{...}{additional parameters to pass to the log density function}
 

@@ -33,7 +33,8 @@ test_that("raw_ad_sample_debug can generate variates and sensible state variable
 
   samp <- raw_ad_sample_debug(n = 1e3, log_dens = h.gam,
                               initialPoints = c(0.5, 1),
-                              minRange = 0, maxRange = Inf)
+                              minRange = 0, maxRange = Inf,
+                              maxiter=0)
 
   expect_equal(length(samp$samples), 1e3)
 

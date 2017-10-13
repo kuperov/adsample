@@ -5,7 +5,7 @@
 \title{Duplicate wrapper for adsamp algorithm for debugging. This version
 returns the algorithm state as well as the variates.}
 \usage{
-raw_ad_sample_debug(n, log_dens, initialPoints, minRange, maxRange)
+raw_ad_sample_debug(n, log_dens, initialPoints, minRange, maxRange, maxiter)
 }
 \arguments{
 \item{n}{number of variates to draw}
@@ -17,6 +17,8 @@ raw_ad_sample_debug(n, log_dens, initialPoints, minRange, maxRange)
 \item{minRange}{lower bound of support}
 
 \item{maxRange}{upper bound of support}
+
+\item{maxiter}{maximum number of iterations; zero if no limit}
 }
 \description{
 Duplicate wrapper for adsamp algorithm for debugging. This version

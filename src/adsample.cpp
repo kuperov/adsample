@@ -39,15 +39,18 @@ typedef struct {
 //
 // IMPORTANT: the density MUST be univariate and log concave in this parameter.
 //
+// params:
 //    n - number of variates to draw
 //    state - optional pointer to a map for storing algorithm state. Leave as
 //            NULL to discard state at end of algorithm
+//    maxiter - maximum number of iterations, zero for no limit
 vector<double> adsample(int n,
                         log_dens_callback h,
                         std::vector<double> initAbscissae,
                         double minD,
                         double maxD,
-                        algo_state* state = NULL) {
+                        algo_state* state = NULL,
+                        long maxiter = 0) {
   vector<double> variates(n);
 
   int k = initAbscissae.size();
@@ -98,7 +101,9 @@ vector<double> adsample(int n,
     Qtot += area;
   }
 
-  for (int nsampled = 0; nsampled < n; ) {
+  int nsampled = 0;
+  for (long iter = 0; nsampled < n && (maxiter == 0 || iter >= maxiter);
+       iter++) {
     // step 1: draw from s_k(x)
     double w = as<double>(runif(1));
     // renormalize this draw to the measure of envelope s_k(x)
@@ -224,7 +229,7 @@ NumericVector raw_ad_sample(int n,
   double minD = Rcpp::as<double>(minRange);
   double maxD = Rcpp::as<double>(maxRange);
 
-  auto samp = adsample(n, h, initT, minD, maxD, NULL);
+  auto samp = adsample(n, h, initT, minD, maxD, NULL, 0);
   return NumericVector(samp.begin(), samp.end());
 }
 
@@ -236,13 +241,15 @@ NumericVector raw_ad_sample(int n,
 //' @param initialPoints at least 2 points in support to seed algorithm
 //' @param minRange lower bound of support
 //' @param maxRange upper bound of support
+//' @param maxiter maximum number of iterations; zero if no limit
 //'
 // [[Rcpp::export]]
 List raw_ad_sample_debug(int n,
                          Rcpp::Function log_dens,
                          NumericVector initialPoints,
                          Rcpp::NumericVector minRange,
-                         Rcpp::NumericVector maxRange) {
+                         Rcpp::NumericVector maxRange,
+                         long maxiter) {
 
   // lambda for getting log density and its slope
   log_dens_callback h = [log_dens](double x) {
@@ -258,7 +265,7 @@ List raw_ad_sample_debug(int n,
   double maxD = Rcpp::as<double>(maxRange);
 
   algo_state state;
-  auto samp = adsample(n, h, initT, minD, maxD, &state);
+  auto samp = adsample(n, h, initT, minD, maxD, &state, maxiter);
   auto variates = NumericVector(samp.begin(), samp.end());
 
   List results;
